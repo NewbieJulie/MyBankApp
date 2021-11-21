@@ -1,21 +1,24 @@
 package ru.julie.dao;
 
-import org.springframework.stereotype.Component;
-import ru.julie.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+import ru.julie.models.Person;
 
-
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-
 @Component
-public class PersonDao {
+public class PersonDAO {
+
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public PersonDao(JdbcTemplate jdbcTemplate) {
+    public PersonDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -29,7 +32,7 @@ public class PersonDao {
     }
 
     public void save(Person person) {
-        jdbcTemplate.update("INSERT INTO Person VALUES(1, ?, ?, ?)", person.getName(), person.getAge(),
+        jdbcTemplate.update("INSERT INTO Person(name, age, email) VALUES(?, ?, ?)", person.getName(), person.getAge(),
                 person.getEmail());
     }
 
@@ -41,4 +44,5 @@ public class PersonDao {
     public void delete(int id) {
         jdbcTemplate.update("DELETE FROM Person WHERE id=?", id);
     }
+
 }

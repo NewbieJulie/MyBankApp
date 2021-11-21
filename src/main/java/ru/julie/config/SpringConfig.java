@@ -16,7 +16,6 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 import javax.sql.DataSource;
 
-
 @Configuration
 @ComponentScan("ru.julie")
 @EnableWebMvc
@@ -35,7 +34,6 @@ public class SpringConfig implements WebMvcConfigurer {
         templateResolver.setApplicationContext(applicationContext);
         templateResolver.setPrefix("/WEB-INF/views/");
         templateResolver.setSuffix(".html");
-        templateResolver.setCharacterEncoding("UTF-8");
         return templateResolver;
     }
 
@@ -51,8 +49,6 @@ public class SpringConfig implements WebMvcConfigurer {
     public void configureViewResolvers(ViewResolverRegistry registry) {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine());
-        resolver.setCharacterEncoding("UTF-8");
-
         registry.viewResolver(resolver);
     }
 
@@ -62,8 +58,8 @@ public class SpringConfig implements WebMvcConfigurer {
 
         dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl("jdbc:postgresql://localhost:5432/first_db");
-        dataSource.setUsername("postgres");
-        dataSource.setPassword("postgres");
+//        dataSource.setUsername("postgres");
+//        dataSource.setPassword("postgres");
 
         return dataSource;
     }
